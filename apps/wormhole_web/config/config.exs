@@ -15,7 +15,12 @@ config :wormhole_web, WormholeWeb.Endpoint,
   secret_key_base: "DHBgouph7urv6lMdeMBCr0AXRu71oau/Xm6ZQQ7DpRW6+RWiJuVD5CDwvJ8dCg7s",
   render_errors: [view: WormholeWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: WormholeWeb.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+           adapter: Phoenix.PubSub.PG2],
+  http: [dispatch: [
+    {:_, [
+        {"/ws",  Phoenix.Endpoint.CowboyWebSocket, {WormholeWeb.WebsocketHandler, %{host: "localhost", port: 1080}}},
+        {:_, Plug.Adapters.Cowboy.Handler, {WormholeWeb.Endpoint, []}}
+      ]}]]
 
 # Configures Elixir's Logger
 config :logger, :console,
