@@ -24,4 +24,8 @@ defmodule Wormhole.Forwarder do
     :inet.setopts(socket, active: :once)
     {:noreply, state}
   end
+
+  def handle_info({:tcp_closed, socket}, %{socket: socket} = state) do
+    {:noreply, state}
+  end
 end

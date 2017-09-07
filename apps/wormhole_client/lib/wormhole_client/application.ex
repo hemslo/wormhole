@@ -10,7 +10,7 @@ defmodule WormholeClient.Application do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: WormholeClient.Worker.start_link(arg)
-      worker(WormholeClient.Worker, [:wormhole_client, 100, :ranch_tcp, [{:port, 5555}], WormholeClient.WormholeProtocol, []]),
+      worker(WormholeClient.Worker, [:wormhole_client, 100, :ranch_tcp, [{:port, 10800}], WormholeClient.WormholeProtocol, ["ws://localhost:4000/ws"]]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -26,7 +26,8 @@ defmodule WormholeClient.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ranch, "~> 1.3.2"}
+      {:ranch, "~> 1.3.2"},
+      {:websocket_client, "~> 1.3"}
     ]
   end
 end
