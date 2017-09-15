@@ -9,7 +9,7 @@ defmodule WormholeWeb.WebsocketHandler do
     {:error, conn}
   end
 
-  def ws_init(%{host: host, port: port} = opts) do
+  def ws_init(%{host: _, port: _} = opts) do
     {:ok, pid} = Forwarder.start_link([], opts |> Map.put(:client_pid, self()))
     {:ok, pid, :infinity}
   end
@@ -31,7 +31,7 @@ defmodule WormholeWeb.WebsocketHandler do
     :ok
   end
 
-  def ws_close(state) do
+  def ws_close(_state) do
     :ok
   end
 end
