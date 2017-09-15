@@ -1,0 +1,17 @@
+version: '2'
+services:
+    wormhole_client:
+        build: .
+        command: _build/dev/rel/wormhole_client/bin/wormhole_client foreground
+        ports:
+            - "10800:10800"
+        environment:
+            MIX_ENV: dev
+
+    wormhole_server:
+        build: .
+        command: _build/dev/rel/wormhole_server/bin/wormhole_server foreground
+        ports:
+            - "4000:4000"
+        environment:
+            MIX_ENV: dev
