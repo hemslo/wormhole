@@ -2,14 +2,12 @@ FROM elixir:1.5.1-alpine
 
 RUN apk add --no-cache bash
 
-RUN mkdir /usr/src/wormhole
-
-WORKDIR /usr/src/wormhole
-
-COPY . /usr/src/wormhole
-
 RUN mix local.hex --force && \
     mix local.rebar --force
+
+COPY . /usr/src/wormhole/
+
+WORKDIR /usr/src/wormhole
 
 RUN mix deps.get
 

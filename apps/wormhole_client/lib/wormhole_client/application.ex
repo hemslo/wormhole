@@ -8,9 +8,19 @@ defmodule WormholeClient.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
     # List all child processes to be supervised
+
+    params = Application.get_env(:wormhole_client, Worker)
+
     children = [
       # Starts a worker by calling: WormholeClient.Worker.start_link(arg)
-      worker(WormholeClient.Worker, [:wormhole_client, 100, :ranch_tcp, [{:port, 10800}], WormholeClient.WormholeProtocol, ["ws://localhost:4000/ws"]]),
+      worker(WormholeClient.Worker, [
+               :wormhole_client,
+               params[:num_acceptors],
+               params[:transport],
+               params[:trans_opts],
+               params[:protocol],
+               params[:proto_opts],
+             ])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

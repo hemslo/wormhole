@@ -28,3 +28,10 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :wormhole_client, Worker,
+  num_acceptors: 100,
+  transport: :ranch_tcp,
+  trans_opts: [{:port, 10800}],
+  protocol: WormholeClient.WormholeProtocol,
+  proto_opts: ["ws://localhost:4000/ws"]
