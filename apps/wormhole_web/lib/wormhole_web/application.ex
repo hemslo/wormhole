@@ -7,7 +7,7 @@ defmodule WormholeWeb.Application do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the endpoint when the application starts
-      supervisor(WormholeWeb.Endpoint, []),
+      supervisor(WormholeWeb.Endpoint, [])
       # Start your own worker by calling: WormholeWeb.Worker.start_link(arg1, arg2, arg3)
       # worker(WormholeWeb.Worker, [arg1, arg2, arg3]),
     ]

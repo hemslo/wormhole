@@ -14,13 +14,13 @@ defmodule WormholeClient.Application do
     children = [
       # Starts a worker by calling: WormholeClient.Worker.start_link(arg)
       worker(WormholeClient.Worker, [
-               :wormhole_client,
-               params[:num_acceptors],
-               params[:transport],
-               params[:trans_opts],
-               params[:protocol],
-               params[:proto_opts],
-             ])
+        :wormhole_client,
+        params[:num_acceptors],
+        params[:transport],
+        params[:trans_opts],
+        params[:protocol],
+        params[:proto_opts]
+      ])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

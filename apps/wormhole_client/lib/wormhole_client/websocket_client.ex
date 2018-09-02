@@ -2,8 +2,8 @@ defmodule WormholeClient.WebsocketClient do
   @behaviour :websocket_client
 
   def start_link(sender, url) do
-    :crypto.start
-    :ssl.start
+    :crypto.start()
+    :ssl.start()
     :websocket_client.start_link(url |> String.to_charlist(), __MODULE__, [sender])
   end
 
@@ -12,21 +12,21 @@ defmodule WormholeClient.WebsocketClient do
   end
 
   def send_data(pid, data) do
-    send pid, {:send, data}
+    send(pid, {:send, data})
   end
 
   def onconnect(_req, state) do
-    send state.sender, :connected
+    send(state.sender, :connected)
     {:ok, state}
   end
 
   def ondisconnect({:remote, :closed}, state) do
-    send state.sender, :disconnected
+    send(state.sender, :disconnected)
     {:reconnect, state}
   end
 
   def websocket_handle({:binary, msg}, _conn_state, state) do
-    send state.sender, {:recv, msg}
+    send(state.sender, {:recv, msg})
     {:ok, state}
   end
 

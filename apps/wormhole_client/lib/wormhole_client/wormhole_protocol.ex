@@ -13,7 +13,16 @@ defmodule WormholeClient.WormholeProtocol do
   def init(ref, socket, transport, [url]) do
     :ok = :ranch.accept_ack(ref)
     {:ok, websocket_client_pid} = WebsocketClient.start_link(self(), url)
-    :gen_server.enter_loop(__MODULE__, [], %{socket: socket, transport: transport, websocket_client_pid: websocket_client_pid})
+
+    :gen_server.enter_loop(__MODULE__, [], %{
+      socket: socket,
+      transport: transport,
+      websocket_client_pid: websocket_client_pid
+    })
+  end
+
+  def init(args) do
+    {:ok, args}
   end
 
   def handle_info(:connected, %{socket: socket, transport: transport} = state) do
@@ -27,12 +36,16 @@ defmodule WormholeClient.WormholeProtocol do
   end
 
   def handle_info({:recv, data}, %{socket: socket, transport: transport} = state) do
-    transport.send socket, data
+    transport.send(socket, data)
     {:noreply, state}
   end
 
-  def handle_info({:tcp, socket, data}, %{socket: socket, transport: transport, websocket_client_pid: websocket_client_pid} = state) do
-    WebsocketClient.send_data websocket_client_pid, data
+  def handle_info(
+        {:tcp, socket, data},
+        %{socket: socket, transport: transport, websocket_client_pid: websocket_client_pid} =
+          state
+      ) do
+    WebsocketClient.send_data(websocket_client_pid, data)
     :ok = transport.setopts(socket, [{:active, :once}])
     {:noreply, state}
   end

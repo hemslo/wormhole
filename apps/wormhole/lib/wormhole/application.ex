@@ -12,8 +12,6 @@ defmodule Wormhole.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    Supervisor.start_link([
-      
-    ], strategy: :one_for_one, name: Wormhole.Supervisor)
+    Supervisor.start_link([], strategy: :one_for_one, name: Wormhole.Supervisor)
   end
 end

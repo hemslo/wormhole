@@ -10,7 +10,9 @@ defmodule Wormhole.Forwarder do
   end
 
   def init(%{host: host, port: port, client_pid: client_pid}) do
-    {:ok, socket} = :gen_tcp.connect(host |> String.to_charlist(), port, [:binary, packet: 0, active: :once])
+    {:ok, socket} =
+      :gen_tcp.connect(host |> String.to_charlist(), port, [:binary, packet: 0, active: :once])
+
     {:ok, %{socket: socket, client_pid: client_pid}}
   end
 
@@ -20,7 +22,7 @@ defmodule Wormhole.Forwarder do
   end
 
   def handle_info({:tcp, socket, msg}, %{socket: socket, client_pid: client_pid} = state) do
-    send client_pid, {:data, msg}
+    send(client_pid, {:data, msg})
     :inet.setopts(socket, active: :once)
     {:noreply, state}
   end
