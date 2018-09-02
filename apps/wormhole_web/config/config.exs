@@ -20,7 +20,7 @@ config :wormhole_web, WormholeWeb.Endpoint,
       {:_,
        [
          {"/ws", Phoenix.Endpoint.CowboyWebSocket,
-          {WormholeWeb.WebsocketHandler, %{host: "localhost", port: 1080}}},
+          {WormholeWeb.WebsocketHandler, %{host: "destination", port: 1080}}},
          {:_, Plug.Adapters.Cowboy.Handler, {WormholeWeb.Endpoint, []}}
        ]}
     ]

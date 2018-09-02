@@ -34,4 +34,4 @@ config :wormhole_client, Worker,
   transport: :ranch_tcp,
   trans_opts: [{:port, 10800}],
   protocol: WormholeClient.WormholeProtocol,
-  proto_opts: ["ws://localhost:4000/ws"]
+  proto_opts: ["ws://wormhole_server:4000/ws"]

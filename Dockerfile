@@ -9,6 +9,8 @@ COPY . /usr/src/wormhole/
 
 WORKDIR /usr/src/wormhole
 
+ENV MIX_ENV prod
+
 RUN mix deps.get
 
 RUN mix release --name=wormhole_client --verbose
