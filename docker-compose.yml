@@ -1,21 +1,19 @@
 version: '3'
 services:
-    destination:
-      image: wernight/dante
+  destination:
+    image: wernight/dante
+    ports:
+      - "1080"
+    restart: always
+
+  wormhole_client:
+      build: .
+      command: _build/prod/rel/wormhole_client/bin/wormhole_client foreground
       ports:
-        - "1080"
-      restart: always
+          - "10800:10800"
 
-    wormhole_client:
-        build: .
-        command: _build/prod/rel/wormhole_client/bin/wormhole_client foreground
-        ports:
-            - "10800:10800"
-
-    wormhole_server:
-        build: .
-        command: _build/prod/rel/wormhole_server/bin/wormhole_server foreground
-        ports:
-            - "4000:4000"
-        depends_on:
-          - destination
+  wormhole_server:
+      build: .
+      command: _build/prod/rel/wormhole_server/bin/wormhole_server foreground
+      ports:
+          - "4000:4000"
